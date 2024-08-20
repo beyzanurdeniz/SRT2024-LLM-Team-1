@@ -10,7 +10,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 llm = ChatOllama(model="llama3")
-template="""                             
+template = """                             
     Based on the user's preferences: {preferences}, past likes: {past_likes} and current mood: {current_mood},
     recommend some books and movies, and for each recommendation give a short summary, tell what it is about, and
     tell why it would be a good choice according to user's inputs. It would be better if you recommend some additional  
