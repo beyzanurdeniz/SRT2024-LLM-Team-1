@@ -3,7 +3,7 @@ For the first week both theoretical and practical work are done.
 ### Theoretical
 <b>Aim:</b> To understand how LLMs work
 
-Our team engaged in an in-depth discussion and presentation addressing key foundational questions about LLMs, including:
+Our team engaged in an in-depth discussion and [presentation](./What_is_LLM.pdf) addressing key foundational questions about LLMs, including:
 * How does LLMs differ from simpler NLP models?
 * How does Transformer architecture work?
 * What are the steps involved in pre-training and fine-tuning an LLM?
