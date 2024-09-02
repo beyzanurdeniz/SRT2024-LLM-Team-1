@@ -16,7 +16,13 @@ Before you start, ensure you have installed all the required dependencies. To do
 pip install -r requirements.txt
 ```
 
+Additionally, you will need to pull the required model using the Ollama tool. This code uses 'llama3' model. To pull it, run the following command:
+
+```bash
+ollama pull llama3
+```
+
 ### Usage
 
-After installing the dependencies, you can run the program and enter your preferences, past likes and current mood by following the prompts. After that the program will give you recommendations to watch or read based on your inputs.
+After installing the dependencies and pulling the required model, you can run the program and enter your preferences, past likes and current mood by following the prompts. After that the program will give you recommendations to watch or read based on your inputs.
 
