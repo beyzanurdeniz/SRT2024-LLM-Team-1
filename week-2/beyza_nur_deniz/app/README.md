@@ -20,7 +20,7 @@ The Competitive Programming Helper is your go-to tool for digging through PDF do
    ```python
    gemini_api_key = "<your_gemini_api_key>"
    pinecone_api_key = "<your_pinecone_api_key>"
-   root_path = "<path_to_pdf_files>
+   root_path = "<path_to_pdf_files>"
    ````
 
 2. **Install Dependencies**
