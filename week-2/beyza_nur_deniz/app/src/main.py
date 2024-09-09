@@ -6,7 +6,24 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from transformers import AutoTokenizer, AutoModel
 from pinecone import Pinecone, ServerlessSpec
 import torch
-from local import gemini_api_key, pinecone_api_key, pdf_files
+from local import gemini_api_key, pinecone_api_key, root_path
+
+pdf_files = [
+    f"{root_path}/cphb.pdf",
+    f"{root_path}/inzva-bundles/01-intro.pdf",
+    f"{root_path}/inzva-bundles/02-algorithms-1.pdf",
+    f"{root_path}/inzva-bundles/03_math1.pdf",
+    f"{root_path}/inzva-bundles/04_Graph1.pdf",
+    f"{root_path}/inzva-bundles/05_DP1.pdf",
+    f"{root_path}/inzva-bundles/06-data-structures-1.pdf",
+    f"{root_path}/inzva-bundles/07_Graph2.pdf",
+    f"{root_path}/inzva-bundles/08-data-structure-2.pdf",
+    f"{root_path}/inzva-bundles/10_dp_2.pdf",
+    f"{root_path}/inzva-bundles/11-graph-3.pdf",
+    f"{root_path}/inzva-bundles/12_Math3.pdf",
+    f"{root_path}/inzva-bundles/14-algorithms-5.pdf",
+    f"{root_path}/inzva-bundles/Data-Structures-3.pdf"
+]
 
 # Initialize Pinecone client
 pc = Pinecone(api_key=pinecone_api_key)
@@ -118,7 +135,8 @@ def generate_response_from_docs(document_ids):
     for doc_id in document_ids:
         try:
             doc_index = int(doc_id.split("_")[1])
-            relevant_texts.append(all_text_chunks[doc_index])
+            if doc_index < len(all_text_chunks):
+                relevant_texts.append(all_text_chunks[doc_index])
         except Exception as e:
             print(f"Error retrieving document for {doc_id}: {e}")
     combined_text = " ".join(relevant_texts)
