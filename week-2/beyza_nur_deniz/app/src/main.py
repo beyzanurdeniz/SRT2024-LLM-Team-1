@@ -71,6 +71,7 @@ def generate_embedding(text):
     embeddings = outputs.last_hidden_state.mean(dim=1)
     return embeddings.numpy().tolist()[0]
 
+
 # Upload text chunks and their embeddings to Pinecone
 def upload_embeddings_to_pinecone(text_chunks):
     for i, chunk in enumerate(text_chunks):
@@ -114,21 +115,6 @@ def process_and_upload_pdfs():
 
 process_and_upload_pdfs()
 
-# Query Pinecone with a user query
-def query_pinecone(query):
-    try:
-        query_embedding = generate_embedding(query)
-        search_result = index.query(vector=query_embedding, top_k=3)
-
-        matches = search_result['matches']
-        document_ids = [match['id'] for match in matches]
-        distances = [match['score'] for match in matches]
-        
-        return document_ids, distances
-    except Exception as e:
-        print(f"Error querying Pinecone: {e}")
-        return [], []
-
 # Generate response based on retrieved document chunks
 def generate_response_from_docs(document_ids):
     relevant_texts = []
@@ -143,6 +129,27 @@ def generate_response_from_docs(document_ids):
     response = gemini_model.invoke(f"Based on the following information: {combined_text}, answer the question.")
     return response.content
 
+# Query Pinecone with a user query
+def query_pinecone(query, relevance_threshold=0.3):  # Define a threshold for relevance
+    try:
+        query_embedding = generate_embedding(query)
+        search_result = index.query(vector=query_embedding, top_k=3)
+        
+        matches = search_result['matches']
+        document_ids = []
+        distances = []
+
+        # Filter based on relevance threshold
+        for match in matches:
+            if match['score'] > relevance_threshold:  # Adjust based on your desired relevance level
+                document_ids.append(match['id'])
+                distances.append(match['score'])
+        
+        return document_ids, distances
+    except Exception as e:
+        print(f"Error querying Pinecone: {e}")
+        return [], []
+
 # Main program loop
 print("Welcome to the Competitive Programming Helper.")
 
@@ -150,11 +157,12 @@ while True:
     user_query = input("Enter your question (or 'exit' to quit): ")
     if user_query.lower() == "exit":
         break
-    
-    document_ids, _ = query_pinecone(user_query)
+
+    document_ids, distances = query_pinecone(user_query)
     
     if document_ids:
         answer = generate_response_from_docs(document_ids)
         print(f"Answer: {answer}")
     else:
         print("No relevant information found.")
+
