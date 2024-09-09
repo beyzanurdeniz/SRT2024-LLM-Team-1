@@ -1,11 +1,11 @@
 import os
 import pickle
+import torch
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import ChatGoogleGenerativeAI
 from transformers import AutoTokenizer, AutoModel
-from pinecone import Pinecone, ServerlessSpec
-import torch
+from pinecone import Pinecone
 from local import gemini_api_key, pinecone_api_key, root_path
 
 pdf_files = [
