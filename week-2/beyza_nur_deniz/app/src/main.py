@@ -126,7 +126,7 @@ def generate_response_from_docs(document_ids):
         except Exception as e:
             print(f"Error retrieving document for {doc_id}: {e}")
     combined_text = " ".join(relevant_texts)
-    response = gemini_model.invoke(f"Based on the following information: {combined_text}, answer the question.")
+    response = gemini_model.invoke(f"Based on the following information: {combined_text}, answer the question. Don't include any invisible code snippets. Just explanations, or if you are going to add a code, do it visible.")
     return response.content
 
 # Query Pinecone with a user query
