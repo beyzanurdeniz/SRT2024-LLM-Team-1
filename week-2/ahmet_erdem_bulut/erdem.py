@@ -18,7 +18,7 @@ vector_store = FAISS.from_documents(documents=texts, embedding=embedding_model)
 llm = ChatOllama(model='llama3')
 
 template = """
-You are an assistant for question-answering tasks about some prompt engineering topics. Use the following pieces of  
+You are an assistant for question-answering tasks. Use the following pieces of  
 retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use five sentences
 maximum and keep the answer concise.
 Context: {context} 
@@ -52,4 +52,4 @@ while True:
         for doc in source_docs:
             source = doc.metadata.get("source")
             page = doc.metadata.get("page", "unknown")  # Get the page number if available
-            print(f"Source: {source}, Page: {page + 1}") # Page indices start from 0
+            print(f"Source: {source}, Page: {page + 1}")  # Page indices start from 0
