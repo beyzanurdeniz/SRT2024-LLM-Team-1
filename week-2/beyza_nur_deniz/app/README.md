@@ -36,10 +36,4 @@ The Competitive Programming Helper is your go-to tool for digging through PDF do
 working on
 
 
-## Acknowledgments
-
-- [Pinecone](https://www.pinecone.io/) for vector database services.
-- [Hugging Face Transformers](https://huggingface.co/transformers/) for pre-trained models.
-- [LangChain](https://www.langchain.com/) for NLP tools and libraries.
-- [Google Generative AI](https://cloud.google.com/generative-ai) for AI models.
 
